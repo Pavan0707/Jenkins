@@ -1,10 +1,12 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
 
-WORKDIR /app
+# Simply the artifact path
+ARG artifact=target/spring-boot-web.jar
 
-COPY --from=build /app/target/*.jar app.jar
+WORKDIR /opt/app
 
-EXPOSE 8080
+COPY ${artifact} app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# This should not be changed
+ENTRYPOINT ["java","-jar","app.jar"]
 
